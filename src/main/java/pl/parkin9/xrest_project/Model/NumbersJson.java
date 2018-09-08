@@ -1,11 +1,10 @@
 package pl.parkin9.xrest_project.Model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NumbersJson {
 
-    private List<Integer> numbers = new ArrayList<>();
+    private List<Integer> numbers;
     private String order;
 
 //////////////////////////////////////////////////////////////////////

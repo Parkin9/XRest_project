@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import pl.parkin9.xrest_project.Exception.NumbersToSortingException;
+import pl.parkin9.xrest_project.Exception.OrderException;
 import pl.parkin9.xrest_project.Model.NumbersJson;
 import pl.parkin9.xrest_project.Service.SortingService;
 
@@ -12,7 +14,6 @@ import pl.parkin9.xrest_project.Service.SortingService;
 public class IndexController {
 
     private final SortingService sortingService;
-    //private final ObjectMapper objectMapper;
 
     @Autowired
     public IndexController(SortingService sortingService) {
@@ -32,7 +33,13 @@ public class IndexController {
     @PostMapping("/numbers/sort-command")
     public NumbersJson sortingNumbers(@RequestBody NumbersJson numbersJson) {
 
-        // TODO add a try/catch block
+        if(numbersJson.getNumbers() == null || numbersJson.getNumbers().isEmpty()) {
+            throw new NumbersToSortingException();
+
+        } else if(numbersJson.getOrder() == null) {
+            throw new OrderException();
+        }
+
         return sortingService.sort(numbersJson);
     }
 }

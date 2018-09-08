@@ -1,6 +1,7 @@
 package pl.parkin9.xrest_project.Service;
 
 import org.springframework.stereotype.Service;
+import pl.parkin9.xrest_project.Exception.OrderException;
 import pl.parkin9.xrest_project.Model.NumbersJson;
 
 import java.util.Collections;
@@ -9,25 +10,31 @@ import java.util.List;
 @Service
 public class SortingService {
 
-    // TODO add Exception (order: null or another value that ASC/DESC)
     public NumbersJson sort(NumbersJson numbersJson) {
 
         List<Integer> numbersToSorting = numbersJson.getNumbers();
-        String order = numbersJson.getOrder();
 
+        // numberJson.order: trim + toLowerCase
+        String order = numbersJson.getOrder().toLowerCase().trim();
+
+
+        // Sorting from the smallest number to the biggest one
         Collections.sort(numbersToSorting);
 
+        switch (order) {
+            case "asc":
 
-        if(order.equals("ASC")) {
+                // Receiving already sorted numbers (ascending)
+                return numbersJson;
 
-            return numbersJson;
+            case "desc":
 
-        } else /*if (order.equals("DESC"))*/ {
+                // Reversing the order of sorted numbers (descending)
+                Collections.reverse(numbersToSorting);
+                return numbersJson;
 
-            Collections.reverse(numbersToSorting);
-
-            return numbersJson;
+            default:
+                throw new OrderException();
         }
-
     }
 }
