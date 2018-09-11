@@ -1,10 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    // Variable to send to server
     var unsortedNumbersArray = [];
-
-    // Variables to display
-    var unsortedNumbersTable = '';
 
     $('#addNumber').click(function(e) {
         e.preventDefault();
@@ -13,7 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         unsortedNumbersArray.push(number);
 
+        var unsortedNumbersTable = '';
         unsortedNumbersTable += '<td>' + number + '</td>';
+
         $('#unsortedNumbers').html('<tr>' + unsortedNumbersTable + '</tr>');
     });
 
