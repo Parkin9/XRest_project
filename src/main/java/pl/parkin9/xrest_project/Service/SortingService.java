@@ -12,14 +12,14 @@ public class SortingService {
 
     public NumbersJson sort(NumbersJson numbersJson) {
 
-        List<Integer> numbersToSorting = numbersJson.getNumbers();
+        List<Integer> numbersToSort = numbersJson.getNumbers();
 
         // numberJson.order: trim + toLowerCase
         String order = numbersJson.getOrder().toLowerCase().trim();
 
 
-        // Sorting from the smallest number to the biggest one
-        Collections.sort(numbersToSorting);
+        // Sorting ascending
+        Collections.sort(numbersToSort);
 
         switch (order) {
             case "asc":
@@ -30,11 +30,11 @@ public class SortingService {
             case "desc":
 
                 // Reversing the order of sorted numbers (descending)
-                Collections.reverse(numbersToSorting);
+                Collections.reverse(numbersToSort);
                 return numbersJson;
 
             default:
-                throw new OrderException();
+                throw new OrderException("Wrong sorting order");
         }
     }
 }

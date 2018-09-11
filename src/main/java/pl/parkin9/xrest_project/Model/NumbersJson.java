@@ -1,8 +1,9 @@
 package pl.parkin9.xrest_project.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class NumbersJson {
+public class NumbersJson implements Serializable {
 
     private List<Integer> numbers;
     private String order;

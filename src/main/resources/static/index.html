@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>XRest Project</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="jscript.js" type="text/javascript"></script>
 </head>
 <body>
-
+    <div id="container">
+        <div>
+            <form>
+                <label>Wpisz liczbę:
+                    <input type="number" id="number"/>
+                </label>
+                <button id="addNumber">Dodaj</button>
+            </form>
+        </div>
+        <hr>
+        <div>
+            <form>
+                <label>Wybierz kolejność sortowania:<br>
+                    <select id="order">
+                        <option value="ASC">Rosnąco</option>
+                        <option value="DESC">Malejąco</option>
+                    </select>
+                </label>
+                <button id="sendNumbers">Sortuj</button>
+            </form>
+        </div>
+        <hr>
+        <div>
+            <table id="unsortedNumbers" align="center"></table>
+        </div>
+        <div>
+            <table id="sortedNumbers" align="center"></table>
+        </div>
+    </div>
 </body>
 </html>
