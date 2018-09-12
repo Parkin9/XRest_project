@@ -2,17 +2,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var unsortedNumbersArray = [];
 
+    var unsortedNumbersTable = '';
+
     $('#addNumber').click(function(e) {
         e.preventDefault();
 
         var number = $('#number').val();
 
-        unsortedNumbersArray.push(number);
+        if($.isNumeric(number)) {
 
-        var unsortedNumbersTable = '';
-        unsortedNumbersTable += '<td>' + number + '</td>';
+            unsortedNumbersArray.push(number);
 
-        $('#unsortedNumbers').html('<tr>' + unsortedNumbersTable + '</tr>');
+            unsortedNumbersTable += '<td>' + number + '</td>';
+            $('#unsortedNumbers').html('<tr>' + unsortedNumbersTable + '</tr>');
+            $('#sortedNumbers').html('');
+
+        } else {
+
+            $('#sortedNumbers').html('<tr><td>To nie jest liczba.</td></tr>');
+        }
     });
 
 

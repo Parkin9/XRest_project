@@ -1,13 +1,13 @@
-package pl.parkin9.xrest_project.Model;
+package pl.parkin9.xrest_project.Serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.springframework.boot.jackson.JsonComponent;
+import pl.parkin9.xrest_project.Model.NumbersJson;
 
 import java.io.IOException;
 
-@JsonComponent
+
 public class NumbersJsonSerializer extends JsonSerializer<NumbersJson> {
 
     @Override
