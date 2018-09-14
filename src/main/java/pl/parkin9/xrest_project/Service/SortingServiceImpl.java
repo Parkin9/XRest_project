@@ -15,12 +15,12 @@ public class SortingServiceImpl implements SortingService {
         List<Integer> numbersToSort = numbersJson.getNumbers();
 
         // Preparing numberJson.order: trim + toUpperCase
-        String order = numbersJson.getOrder().toUpperCase().trim();
+        String orderSorting = numbersJson.getOrder().toUpperCase().trim();
 
         // Sorting ascending
         Collections.sort(numbersToSort);
 
-        switch (order) {
+        switch (orderSorting) {
             case "ASC":
 
                 // Receiving already sorted numbers (ascending)

@@ -9,7 +9,6 @@ import pl.parkin9.xrest_project.Exception.NumbersToSortingException;
 import pl.parkin9.xrest_project.Exception.SortingOrderException;
 import pl.parkin9.xrest_project.Model.CurrencyJson;
 import pl.parkin9.xrest_project.Model.NumbersJson;
-import pl.parkin9.xrest_project.Service.PrepareCurrencyCodeService;
 import pl.parkin9.xrest_project.Service.SortingService;
 
 @CrossOrigin
@@ -17,12 +16,10 @@ import pl.parkin9.xrest_project.Service.SortingService;
 public class IndexController {
 
     private final SortingService sortingService;
-    private final PrepareCurrencyCodeService prepareCurrencyCodeService;
 
     @Autowired
-    public IndexController(SortingService sortingService, PrepareCurrencyCodeService prepareCurrencyCodeService) {
+    public IndexController(SortingService sortingService) {
         this.sortingService = sortingService;
-        this.prepareCurrencyCodeService = prepareCurrencyCodeService;
     }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -57,16 +54,6 @@ public class IndexController {
     @PostMapping("/currencies/get-current-currency-value-command")
     public ResponseEntity<CurrencyJson> getCurrencyValue(@RequestBody CurrencyJson currencyJson) {
 
-        try {
-            // Preparing CurrencyJson.currency: trim + toUpperCase
-            CurrencyJson matchedToClientApiCurrencyJson = prepareCurrencyCodeService.trimAndUpperCase(currencyJson);
-
-            return new ResponseEntity<>(matchedToClientApiCurrencyJson, HttpStatus.OK);
-
-        // If (@RequestBody) currencyJson is a null.
-        } catch (NullPointerException e) {
-
-            throw new CurrencyCodeException("Currency code is a null.");
-        }
+        return new ResponseEntity<>(currencyJson, HttpStatus.OK);
     }
 }

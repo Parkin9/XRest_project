@@ -1,26 +1,27 @@
 package pl.parkin9.xrest_project.Serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.parkin9.xrest_project.Client.NBPApiClient;
 import pl.parkin9.xrest_project.Exception.CurrencyCodeException;
 import pl.parkin9.xrest_project.Model.CurrencyJson;
 import pl.parkin9.xrest_project.Model.NBPApiJson;
 import pl.parkin9.xrest_project.Model.Rate;
-import pl.parkin9.xrest_project.Service.NBPApiClientService;
 
 import java.io.IOException;
 
 @Component
 public class CurrencyJsonSerializer extends JsonSerializer<CurrencyJson> {
 
-    private NBPApiClientService nbpApiClientService;
+    private NBPApiClient nbpApiClient;
 
     @Autowired
-    public CurrencyJsonSerializer(NBPApiClientService nbpApiClientService) {
-        this.nbpApiClientService = nbpApiClientService;
+    public CurrencyJsonSerializer(NBPApiClient nbpApiClient) {
+        this.nbpApiClient = nbpApiClient;
     }
 
     public CurrencyJsonSerializer() {
@@ -33,17 +34,22 @@ public class CurrencyJsonSerializer extends JsonSerializer<CurrencyJson> {
                           JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
 
-        NBPApiJson nbpApiJson = nbpApiClientService.getNBPApiJson();
-        int counterLoop = 1;
+        // Downloading NBPApiJson from NBPApiClient
+        NBPApiJson nbpApiJson = nbpApiClient.getNBPApiJson();
+
+        // Preparing currencyJson.currency (it's a currency code): trim + toUpperCase
+        String currencyCode = currencyJson.getCurrency().trim().toUpperCase();
+
 
         jsonGenerator.writeStartObject();
 
         // In this loop, an exception will be thrown only
         // when the CurrencyCode isn't on the RatesList
         // and the whole list was checked.
+        int counterLoop = 1;
         for(Rate rate : nbpApiJson.getRates()){
 
-            if(currencyJson.getCurrency().equals(rate.getCode())) {
+            if(currencyCode.equals(rate.getCode())) {
                 jsonGenerator.writeNumberField("value", rate.getMid());
                 break;
 
@@ -56,4 +62,6 @@ public class CurrencyJsonSerializer extends JsonSerializer<CurrencyJson> {
 
         jsonGenerator.writeEndObject();
     }
+
+
 }

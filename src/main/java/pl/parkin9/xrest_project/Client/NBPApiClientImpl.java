@@ -1,4 +1,4 @@
-package pl.parkin9.xrest_project.Service;
+package pl.parkin9.xrest_project.Client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -9,12 +9,12 @@ import pl.parkin9.xrest_project.Exception.NBPApiJsonException;
 import pl.parkin9.xrest_project.Model.NBPApiJson;
 
 @Service
-public class NBPApiClientServiceImpl implements NBPApiClientService {
+public class NBPApiClientImpl implements NBPApiClient {
 
     private final RestTemplate restTemplate;
 
     @Autowired
-    public NBPApiClientServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+    public NBPApiClientImpl(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
