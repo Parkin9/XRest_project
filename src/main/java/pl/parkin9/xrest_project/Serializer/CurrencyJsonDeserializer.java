@@ -9,7 +9,12 @@ import pl.parkin9.xrest_project.Model.CurrencyJson;
 import java.io.IOException;
 
 /*
-* TODO: describe class
+* I wrote this class because Jackson has problem with a mapping request, witch contains null.
+* I don't know why. Now, the library has calm down :)
+* Here, a null is turn into "null" (String) and it helped with a mapping,
+* but the class itself is no longer necessary.
+* I have left it to show that I know how to write the deserializer.
+* Quite similar to the serializer ;)
 */
 
 public class CurrencyJsonDeserializer extends JsonDeserializer<CurrencyJson> {

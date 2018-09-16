@@ -54,6 +54,10 @@ public class IndexController {
     @PostMapping("/currencies/get-current-currency-value-command")
     public ResponseEntity<CurrencyJson> getCurrencyValue(@RequestBody CurrencyJson currencyJson) {
 
+        if(currencyJson.getCurrency() == null) {
+            throw new CurrencyCodeException("Wrong currency code.");
+        }
+
         return new ResponseEntity<>(currencyJson, HttpStatus.OK);
     }
 }
