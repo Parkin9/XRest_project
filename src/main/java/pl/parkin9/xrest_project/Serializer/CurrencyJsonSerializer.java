@@ -53,7 +53,7 @@ public class CurrencyJsonSerializer extends JsonSerializer<CurrencyJson> {
                 break;
 
             } else if (counterLoop == nbpApiJson.getRates().size()){
-                throw new CurrencyCodeException("Wrong currency code.");
+                throw new CurrencyCodeException("Unrecognized currency code.");
             }
 
             counterLoop++;
