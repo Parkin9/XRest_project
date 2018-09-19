@@ -19,11 +19,8 @@ public class CurrencyJsonSerializer extends JsonSerializer<CurrencyJson> {
     private NBPApiClient nbpApiClient;
 
     @Autowired
-    public CurrencyJsonSerializer(NBPApiClient nbpApiClient) {
+    public void setNbpApiClient(NBPApiClient nbpApiClient) {
         this.nbpApiClient = nbpApiClient;
-    }
-
-    public CurrencyJsonSerializer() {
     }
 
 /////////////////////////////////////////////////////////////////////////////////

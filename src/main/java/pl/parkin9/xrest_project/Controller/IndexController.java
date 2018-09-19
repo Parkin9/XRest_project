@@ -31,10 +31,13 @@ public class IndexController {
         return new ResponseEntity<>("pong", HttpStatus.OK);
     }
 
+
     // Endpoint 2.
-    @PostMapping("/numbers/sort-command")
+    @PostMapping(value = "/numbers/sort-command", consumes = "application/json;charset=UTF-8",
+                                                    produces = "application/json;charset=UTF-8")
     public ResponseEntity<NumbersJson> sortingNumbers(@RequestBody NumbersJson unsortedNumbersJson) {
 
+        // Looking for trouble :) (nulls for example)
         if(unsortedNumbersJson.getNumbers() == null
         || unsortedNumbersJson.getNumbers().contains(null)
         || unsortedNumbersJson.getNumbers().isEmpty()) {
@@ -44,19 +47,25 @@ public class IndexController {
             throw new SortingOrderException("Sorting order is null");
         }
 
-        // Sorting service
+
+        // Sorting numbers
         NumbersJson sortedNumbersJson = sortingService.sort(unsortedNumbersJson);
+
 
         return new ResponseEntity<>(sortedNumbersJson, HttpStatus.OK);
     }
 
+
     // Endpoint 3.
-    @PostMapping("/currencies/get-current-currency-value-command")
+    @PostMapping(value = "/currencies/get-current-currency-value-command", consumes = "application/json;charset=UTF-8",
+                                                                            produces = "application/json;charset=UTF-8")
     public ResponseEntity<CurrencyJson> getCurrencyValue(@RequestBody CurrencyJson currencyJson) {
 
+        // Looking for null
         if(currencyJson.getCurrency() == null) {
             throw new CurrencyCodeException("Wrong currency code.");
         }
+
 
         return new ResponseEntity<>(currencyJson, HttpStatus.OK);
     }

@@ -3,12 +3,12 @@ package pl.parkin9.xrest_project.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.parkin9.xrest_project.Exception.NBPApiJsonException;
 import pl.parkin9.xrest_project.Model.NBPApiJson;
 
-@Service
+@Component
 public class NBPApiClientImpl implements NBPApiClient {
 
     private final RestTemplate restTemplate;

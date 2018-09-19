@@ -7,7 +7,6 @@ import pl.parkin9.xrest_project.Model.NumbersJson;
 
 import java.io.IOException;
 
-
 public class NumbersJsonSerializer extends JsonSerializer<NumbersJson> {
 
     @Override
