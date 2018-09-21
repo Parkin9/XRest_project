@@ -35,24 +35,24 @@ public class IndexController {
     // Endpoint 2.
     @PostMapping(value = "/numbers/sort-command", consumes = "application/json;charset=UTF-8",
                                                     produces = "application/json;charset=UTF-8")
-    public ResponseEntity<NumbersJson> sortingNumbers(@RequestBody NumbersJson unsortedNumbersJson) {
+    public ResponseEntity<NumbersJson> sortingNumbers(@RequestBody NumbersJson numbersJson) {
 
         // Looking for trouble :) (nulls for example)
-        if(unsortedNumbersJson.getNumbers() == null
-        || unsortedNumbersJson.getNumbers().contains(null)
-        || unsortedNumbersJson.getNumbers().isEmpty()) {
+        if(numbersJson.getNumbers() == null
+        || numbersJson.getNumbers().contains(null)
+        || numbersJson.getNumbers().isEmpty()) {
             throw new NumbersToSortingException("Request doesn't contain any data to sort.");
 
-        } else if(unsortedNumbersJson.getOrder() == null) {
+        } else if(numbersJson.getOrder() == null) {
             throw new SortingOrderException("Sorting order is null");
         }
 
 
         // Sorting numbers
-        NumbersJson sortedNumbersJson = sortingService.sort(unsortedNumbersJson);
+        sortingService.sort(numbersJson);
 
 
-        return new ResponseEntity<>(sortedNumbersJson, HttpStatus.OK);
+        return new ResponseEntity<>(numbersJson, HttpStatus.OK);
     }
 
 

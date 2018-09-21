@@ -1,6 +1,7 @@
 package pl.parkin9.xrest_project.Model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import pl.parkin9.xrest_project.Exception.SortingOrderException;
 import pl.parkin9.xrest_project.Serializer.NumbersJsonSerializer;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.List;
 public class NumbersJson implements Serializable {
 
     private List<Integer> numbers;
-    private String order;
+    private OrderEnum order;
 
 //////////////////////////////////////////////////////////////////////
 
@@ -22,12 +23,19 @@ public class NumbersJson implements Serializable {
         this.numbers = numbers;
     }
 
-    public String getOrder() {
+    public OrderEnum getOrder() {
         return order;
     }
 
     public void setOrder(String order) {
-        this.order = order;
+
+        try {
+            String preparedOrder = order.toUpperCase().trim();
+            this.order = OrderEnum.valueOf(preparedOrder);
+
+        } catch (IllegalArgumentException ex) {
+            throw new SortingOrderException("Wrong sorting order");
+        }
     }
 
     @Override

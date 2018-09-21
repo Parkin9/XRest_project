@@ -9,13 +9,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.parkin9.xrest_project.Controller.IndexController;
+import pl.parkin9.xrest_project.Exception.SortingOrderException;
 import pl.parkin9.xrest_project.Model.NumbersJson;
+import pl.parkin9.xrest_project.Model.OrderEnum;
 import pl.parkin9.xrest_project.Service.SortingService;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -89,11 +91,14 @@ public class XRestProjectApplicationTests {
     public void sortingServiceTest() {
 
         NumbersJson numbersJson = new NumbersJson();
-        numbersJson.setNumbers(Arrays.asList(1,2,3,4,5,6));
+        numbersJson.setNumbers(Arrays.asList(4,2,6,1,5,3));
+
         numbersJson.setOrder("DESC");
+        sortingService.sort(numbersJson);
+        assertThat(numbersJson.getNumbers()).isEqualTo(Arrays.asList(6,5,4,3,2,1));
 
-        List<Integer> sortedNumbers = sortingService.sort(numbersJson).getNumbers();
-
-        assertThat(sortedNumbers).isEqualTo(Arrays.asList(6,5,4,3,2,1));
+        numbersJson.setOrder("ASC");
+        sortingService.sort(numbersJson);
+        assertThat(numbersJson.getNumbers()).isEqualTo(Arrays.asList(1,2,3,4,5,6));
     }
 }
